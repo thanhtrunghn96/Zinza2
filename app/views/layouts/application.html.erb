@@ -12,14 +12,15 @@
   <body>
     <%= render 'shared/header' if user_signed_in? %>
     <%= yield %>
+    <%= render 'shared/footer'%>
+
     <% if flash.any? %>
       <script type = "text/javascript">
         <%= flash.each do |key,value| %>
-          <%= type = key.to_s.gsub('alert', 'error').gsub('notice', 'success')%>
+          <% type = key.to_s.gsub('alert', 'error').gsub('notice', 'success') %>
           toastr.<%= type %>('<%= value %>')
         <% end %>
       </script>
     <% end %>
-    <%= render 'shared/footer'%>
   </body>
 </html>

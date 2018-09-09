@@ -1,0 +1,37 @@
+<div class = "container">
+  <div class = "post-box" id = "post-box-t">
+    <div class = "post-head">Create Post</div>
+    <div class = "post-body">
+      <%= form_for @post, html: {class: 'upload-images', multipart: true} do |f| %>
+        <div class = "pb-avatar-content">
+          <div class =  "pb-avatar">
+            <%= image_tag 'jeans2.jpg', class:'img-avatar', alt: 'avarta' %>
+          </div>
+          <div class = "pb-content">
+            <%= f.text_area :content, class:'form-control post-text', Placeholder: 'Say something about this ...', autocomplete: 'off'%>
+          </div>
+        </div>
+        <%= file_field_tag 'images[]', type: :file, multiple: true, style: 'margin: 6px 8px;', class: 'btn btn-light'%>
+        <div class="dz-message"></div>
+        <div class = "dropzone-previews">
+          <div class = "upload-photos-icon">
+            <i class = "fa fa-plus fa-2x" aria-hidden = "true" style = "color:#DCDCDC"></i>
+          </div>
+        </div>
+        <%= f.submit 'Post', id: 'submit-post',class: 'btn btn-outline-info btn-lg',style:'float:right;margin-right: 19px;' %>
+      <% end %>
+    </div>
+      <!--<ul id = "ul">
+        <% @posts.each do |post|%>
+        <div class = "abc">
+          <%= render 'posts/listpost', post: post  %>
+        </div>
+        <% end %>
+      </ul>!-->
+  </div>
+  <div id="all_post">
+    <% @posts.each do |post| %>
+      <%= render 'posts/listposts', post: post  %>
+    <% end%>
+  </div>
+</div>

@@ -1,0 +1,310 @@
+/*
+ * This is a manifest file that'll be compiled into application.css, which will include all the files
+ * listed below.
+ *
+ * Any CSS and SCSS file within this directory, lib/assets/stylesheets, or any plugin's
+ * vendor/assets/stylesheets directory can be referenced here using a relative path.
+ *
+ * You're free to add application-wide styles to this file and they'll appear at the bottom of the
+ * compiled file so the styles you add here take precedence over styles defined in any other CSS/SCSS
+ * files in this directory. Styles in this file should be added after the last require_* statement.
+ * It is generally better to create a new file per style scope.
+ *
+ *= require_tree .
+ *= require_self
+ */
+  @import "bootstrap";
+  @import "toastr";
+  @import "dropzone/dropzone";
+  @import "font-awesome";
+
+  body {
+    background-color: #ffffff;
+    font-size: 14px;
+    color: #262626;
+  }
+  // header
+  .core-sprite {
+    background-image: image-url("core-sprite-2x.png");
+    background-size: 405px 379px;
+    background-repeat: no-repeat;
+  }
+  .navbar-brand {
+    background-position: -176px 0;
+    width: 176px;
+    height: 35px;
+  }
+  .hide-text {
+    display: block;
+    overflow: hidden;
+    text-indent: 110%;
+    white-space: nowrap;
+  }
+  .explore-icon {
+    background-position: -50px -355px;
+    height: 24px;
+    width: 24px;
+  }
+  .notification-icon {
+    background-position: -353px -296px;
+    height: 24px;
+    width: 24px
+  }
+  .profile-icon {
+    background-position: -308px -176px;
+    height: 24px;
+    width: 24px
+  }
+  .nav-item:not(:first-child) {
+    margin-left: 30px;
+  }
+  
+  // sign_in
+  .box-login {
+    background-color: #ffffff;
+    width: 437px;
+    height: 356px;
+    margin: 91px auto;
+  }
+  .box-login form {
+    margin-top: 12px;
+  }
+  .img-login {
+    width: 176px;
+    height: 52px;
+    margin: 0 auto;
+    background-position: 0px 1px;
+  }
+  .box-phone {
+    width: 441px;
+    height: 560px;
+    margin: 23px auto;
+    background-image: image-url("dummy-phone-2x.png");
+    background-size: 452px 559px;
+    background-repeat: no-repeat;
+  }
+  .devise-links-box {
+    text-align: center;
+  }
+  .devise-links-box p a {
+    text-decoration: none;
+    color: deepskyblue;
+  }
+  #carouselExampleSlidesOnly {
+    padding-left: 150px;
+    padding-top: 89px;
+  }
+  input .btn .btn-info .btn-block .log-in {
+    font-weight: 600;
+  }
+
+//sign up
+.title-under-form {
+  font-weight: 600;
+  line-height: 20px;
+  font-size: 17px;
+  margin: 0 112px 10px;
+  color: #999;
+  text-align: center;
+}
+
+//footer
+.lifpt {
+  display: inline-block;
+  margin-bottom: 7px;
+  margin-right: 16px;
+  font-size: 12px;
+  font-weight: 600;
+}
+.lifpt .afpt {
+  color: #003569;
+  text-decoration: none;
+}
+.spft {
+  font-size: 12px;
+  font-weight: 600;
+  padding-bottom: 7px;
+  color: #999;
+}
+
+// post index
+.post-box {
+  width: 688px;
+  height: auto;
+  margin: auto;
+}
+.post-head {
+  width: 688px;
+  height: 44px;
+  border: 1px solid #E9EAEE;
+  border-radius: 6px 6px 0px 0px;
+  text-align: left;
+  margin-top: 44px;
+  padding: 9px;
+  font-size: 16px;
+}
+.post-body {
+  width: 688px;
+  height: 292px;
+  border: 1px solid #E9EAEE;
+  border-top: none;
+  border-radius: 0px 0px 6px 6px;
+  display: -webkit-inline-box;
+}
+.pb-avatar-content {
+  width: 669px;
+  height: 75px;
+  display: -webkit-inline-box;
+}
+.pb-content{
+  width: 572px;
+  height: 73px;
+}
+.pb-avatar {
+  width: 97px;
+  height: 73px;
+  padding: 11px 0px 0px 17px;
+}
+.img-avatar {
+  width: 60px;
+  height: 60px;
+  border-radius: 50%;
+}
+.post-text {
+  border: none;
+  width: 572px !important;
+  margin-top: 19px;
+  height: 40px !important;
+}
+.upload-images {
+  width: 685px;
+  height: 278px;
+}
+// customize upload photos
+.upload-photos-icon:hover {
+  cursor: pointer;
+}
+.dz-preview.dz-image-preview {
+  margin: 1px;
+}
+.dz-image {
+  border-radius: 0px !important;
+
+  img {
+    width: 100%;
+  }
+}
+.dz-remove {
+  @extend .core-sprite;
+  @extend .hide-text;
+  position: absolute;
+  top:9px;
+  right:5px;
+  -webkit-transition: opacity 0.2s liner;
+  width: 18px;
+  height: 18px;
+  background-position: -386px -25px;
+  text-decoration: none;
+  opacity:0;
+  z-index: 20;
+  transition: opacity 0.2s liner;
+}
+
+.dropzone .dz-preview:hover .dz-remove {
+  opacity: 1;
+}
+.upload-photos-icon {
+  height: 100px;
+  width: 100px;
+  border: 2px dashed #DCDDE1;
+  border-radius: 2px;
+  padding: 34px;;
+  display: inline-block;
+  margin-left: 11px;
+}
+
+.card-box {
+  width: 688px;
+  height: 500px;
+  margin: 15px auto;
+  border:1px solid #DCDDE1;
+  border-radius: 6px 6px;
+}
+.card-inside {
+  width: 649px;
+  height: 387px;
+  margin: 20px auto;
+  //border: 1px solid gray;
+}
+.card-head {
+  width: 649px;
+  height: 75px;
+  //border-bottom: 1px solid gray;
+  display: -webkit-inline-box;
+}
+.card-avatar {
+  @extend .pb-avatar;
+  padding: 0px 0px !important;
+  width: 62px !important;
+}
+.time-content {
+  width:585px;
+  height: 75px;
+}
+.username-time {
+  width: 585px;
+  height: 20px;
+}
+.user-name a {
+  color: #365899 !important;
+  cursor: pointer;
+  text-decoration: none !important;
+  font-weight: 600;
+  font-family: inherit !important;
+}
+.drop-down-edl {
+  height: 19px;
+  float: right;
+}
+.card-head .card-post-content {
+  width: 585px;
+  height: 55px;
+}
+#destroy-post {
+  cursor: pointer;
+}
+#edit-post{
+  cursor: pointer;
+}
+#post-edit-content {
+  margin:4px 0px 0px 2px !important;
+  background-color: #ffffff;
+  cursor: auto;
+}
+.like-box {
+  width: 688px;
+  height: 70px;
+}
+.like-box-head {
+  width: 687px;
+  height: 30px;
+  border-bottom: 1px solid #DCDDE1;
+}
+.like-box-icon {
+  width: 687px;
+  height: 40px;
+  display: -webkit-inline-box;
+}
+.like-icon {
+  width: 344px;
+  height: 40px;
+  padding: 5px 0px 0px 160px;
+}
+.like-icon:hover {background-color: #F6F6F6;}
+.comment-icon {
+  @extend .like-icon;
+  padding: 5px 0px 0px 160px;
+}
+.like-icon i {
+  cursor: pointer;
+}
