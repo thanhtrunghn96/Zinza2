@@ -15,6 +15,7 @@
  */
   @import "bootstrap";
   @import "toastr";
+  @import "dropzone/dropzone";
   body {
     background-color: #ffffff;
     font-size: 14px;
@@ -122,4 +123,100 @@
   font-weight: 600;
   padding-bottom: 7px;
   color: #999;
+}
+
+// post index
+.post-box {
+  width: 688px;
+  height: auto;
+  margin: auto;
+}
+.post-head {
+  width: 688px;
+  height: 44px;
+  border: 1px solid #E9EAEE;
+  border-radius: 6px 6px 0px 0px;
+  text-align: left;
+  margin-top: 44px;
+  padding: 9px;
+  font-size: 16px;
+}
+.post-body {
+  width: 688px;
+  height: 292px;
+  border: 1px solid #E9EAEE;
+  border-top: none;
+  border-radius: 0px 0px 14px 14px;
+  display: -webkit-inline-box;
+}
+.pb-avatar-content {
+  width: 669px;
+  height: 75px;
+  display: -webkit-inline-box;
+}
+.pb-content{
+  width: 572px;
+  height: 73px;
+}
+.pb-avatar {
+  width: 97px;
+  height: 73px;
+  padding: 11px 0px 0px 17px;
+}
+.img-avatar {
+  width: 60px;
+  height: 60px;
+  border-radius: 50%;
+}
+.post-text {
+  border: none;
+  width: 572px !important;
+  margin-top: 19px;
+  height: 40px !important;
+}
+.upload-images {
+  width: 685px;
+  height: 278px;
+}
+// customize upload photos
+.upload-photos-icon:hover {
+  cursor: pointer;
+}
+.dz-preview.dz-image-preview {
+  margin: 1px;
+}
+.dz-image {
+  border-radius: 0px !important;
+
+  img {
+    width: 100%;
+  }
+}
+.dz-remove {
+  @extend .core-sprite;
+  @extend .hide-text;
+  position: absolute;
+  top:9px;
+  right:5px;
+  -webkit-transition: opacity 0.2s liner;
+  width: 18px;
+  height: 18px;
+  background-position: -386px -25px;
+  text-decoration: none;
+  opacity:0;
+  z-index: 20;
+  transition: opacity 0.2s liner;
+}
+
+.dropzone .dz-preview:hover .dz-remove {
+  opacity: 1;
+}
+.upload-photos-icon {
+  height: 120px;
+  width: 120px;
+  border: 2px dashed #DCDDE1;
+  border-radius: 2px;
+  padding: 45px;
+  display: inline-block;
+  margin-left:6px
 }

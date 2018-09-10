@@ -7,19 +7,21 @@
 
     <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track': 'reload' %>
     <%= javascript_include_tag 'application', 'data-turbolinks-track': 'reload' %>
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.3.1/css/all.css" integrity="sha384-mzrmE5qonljUremFsqc01SB46JvROS7bZs3IO2EmfFsd15uHvIt+Y8vEf7N7fWAU" crossorigin="anonymous">
   </head>
 
   <body>
     <%= render 'shared/header' if user_signed_in? %>
     <%= yield %>
+    <%= render 'shared/footer'%>
+
     <% if flash.any? %>
       <script type = "text/javascript">
         <%= flash.each do |key,value| %>
-          <%= type = key.to_s.gsub('alert', 'error').gsub('notice', 'success')%>
+          <% type = key.to_s.gsub('alert', 'error').gsub('notice', 'success') %>
           toastr.<%= type %>('<%= value %>')
         <% end %>
       </script>
     <% end %>
-    <%= render 'shared/footer'%>
   </body>
 </html>
