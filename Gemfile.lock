@@ -258,14 +258,20 @@ DEPENDENCIES
   byebug
   capybara (>= 2.15, < 4.0)
   carrierwave (~> 1.0)
+<<<<<<< HEAD
   carrierwave-base64
+=======
+>>>>>>> b221ef9e4361e60b787ac158d0a65bbd015e4d39
   chromedriver-helper
   cloudinary
   cocoon
   coffee-rails (~> 4.2)
   devise
   dropzonejs-rails
+<<<<<<< HEAD
   font-awesome-rails
+=======
+>>>>>>> b221ef9e4361e60b787ac158d0a65bbd015e4d39
   jbuilder (~> 2.5)
   jquery-rails
   listen (>= 3.0.5, < 3.2)

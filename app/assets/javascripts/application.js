@@ -41,6 +41,7 @@ $(document).ready(function(){
 
   // Creat post
   $(document).on('submit', '#new_post', function(event) {
+  $('#new_post').submit(function(event) {
     event.preventDefault();
     var method = $(this).attr('method');
     var url = $(this).attr('action');
