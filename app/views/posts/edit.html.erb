@@ -1,0 +1,3 @@
+<%= form_for @post, data:"#{@post.id}" do |post| %>
+  <%= post.text_field :content, value: "#{@post.content}", class:'form-control post-text',id:'post-edit-content', autocomplete: 'off'%>
+<% end %>

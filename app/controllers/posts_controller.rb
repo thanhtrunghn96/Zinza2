@@ -1,10 +1,9 @@
 class PostsController < ApplicationController
   skip_before_action :verify_authenticity_token
   before_action :authenticate_user!
-  before_action :find_id, only: [:show, :edit]
+  before_action :find_id, only: [:show, :edit, :destroy, :update]
   def index
-    # @posts = Post.all.limit(10).includes(:photos)
-    @posts = Post.all
+    @posts = Post.all.limit(10)
     @post =  Post.new
   end
  
@@ -14,14 +13,13 @@ class PostsController < ApplicationController
     @post = current_user.posts.build(post_params)
     if @post.save
       if params[:images]
-        params[:images].each do |img|
-          @post.photos.create(image: img)
-        end
+        #params[:images].each do |img|
+          @post.photos.create(image: params[:images])
       end
       respond_to do |format|
         # format.json {render json: @post }
         format.html do
-          render '_listpost', layout: false, locals: {post: @post}
+          render '_listposts', layout: false, locals: {post: @post}
         end
       end
     else
@@ -30,11 +28,28 @@ class PostsController < ApplicationController
     end
   end
 
-  def destroy
-    post = Post.find_by(id: params[:id])
+  def edit 
     respond_to do |format|
-      post.destroy
-      format.json {render json: {success: true} }
+      format.html do
+        render 'edit', layout: false, locals: {post: @post}
+      end
+    end
+  end
+
+  def update
+    respond_to do |format|
+      if @post.update(post_params)
+        # format.json { render json: @post.to_json (only: [:content]) }
+        format.json { render json: {success: true} }
+      end
+    end
+  end
+
+  def destroy
+    respond_to do |format|
+      if @post.destroy
+        format.json { render json: {success: true} }
+      end
     end
   end
 
