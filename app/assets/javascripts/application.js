@@ -41,7 +41,6 @@ $(document).ready(function(){
 
   // Creat post
   $(document).on('submit', '#new_post', function(event) {
-  $('#new_post').submit(function(event) {
     event.preventDefault();
     var method = $(this).attr('method');
     var url = $(this).attr('action');
@@ -127,7 +126,7 @@ $(document).on('click', '.love-white', function(event){
       $( event.target).closest('.like-icon').html('<i class="fa fa-heart fa-2x love-black" aria-hidden="true" data-id = "' +  data.post_id + '" data-like = "'+ data.like_id + '"></i>');
     },
   });
-})
+});
 
 $(document).on('click', '.love-black', function(event){
   event.preventDefault();
@@ -144,4 +143,4 @@ $(document).on('click', '.love-black', function(event){
       $( event.target).closest('.like-icon').html('<i class="fa fa-heart-o fa-2x love-white" aria-hidden="true" data-id = "' +  data.post_id + '"></i>');
     },
   });
-})
+});
