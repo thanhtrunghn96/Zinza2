@@ -2,7 +2,7 @@
     <div class = "card-inside">
       <div class = "card-head">
          <div class = "card-avatar">
-            <%= image_tag 'jeans2.jpg', class:'img-avatar', alt: 'avarta'%>
+            <%= image_tag 'jeans2.jpg', class:'img-avatar', alt: 'jeans2.jpg'%>
           </div>
           <div class = "time-content">
             <div class = "username-time">
@@ -13,8 +13,8 @@
                   <span class="sr-only">Toggle Dropdown</span>
                 </button>
                 <div class="dropdown-menu">
-                  <button id="edit-post", class= "dropdown-item", data-id="<%= post.id %>">Edit</button>
-                  <button id="destroy-post", class= "dropdown-item", data-id="<%= post.id %>">Delete</button>
+                  <button id="edit-post" class= "dropdown-item" data-id="<%= post.id %>">Edit</button>
+                  <button id="destroy-post" class= "dropdown-item" data-id="<%= post.id %>">Delete</button>
                 </div>
               </div>
             </div>
@@ -44,9 +44,9 @@
     </div>
     <div class = "like-box">
       <div class = "like-box-head">
-        <i class = "fa fa-heart", style ="margin:8px 4px 8px 19px;"></i>
+        <i class = "fa fa-heart" style ="margin:8px 4px 8px 19px;"></i>
         <span class = "count-likes"><%= post.likes.count()%> Loved</span>
-        <span style = "float:right;margin: 3px 21px;">16 Comment</span>
+        <span class = "count-comments" style = "float:right;margin: 3px 21px;"><%= post.comments.count()%> Comment</span>
       </div>
       <div class = "like-box-icon">
       <% if post.liked(current_user).nil? %>
@@ -54,7 +54,7 @@
       <% else %>
         <div class = "like-icon"><i class="fa fa-heart fa-2x love-black" aria-hidden="true" data-id = "<%= post.id%>" data-like = "<%= post.liked(current_user).id%>"></i></div>
       <% end %>
-        <div class = "comment-icon"><i class="fa fa-comments-o fa-2x" aria-hidden="true"></i></div>
+        <div class = "comment-icon"><i class="fa fa-comments-o fa-2x cm-icon" aria-hidden="true" data-id = "<%= post.id %>"></i></div>
       </div>
     </div>
-  </div>
+</div>

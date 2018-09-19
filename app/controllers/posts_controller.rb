@@ -14,7 +14,7 @@ class PostsController < ApplicationController
     if @post.save
       if params[:images]
         #params[:images].each do |img|
-          @post.photos.create(image: params[:images])
+        @post.photos.create(image: params[:images])
       end
       respond_to do |format|
         # format.json {render json: @post }

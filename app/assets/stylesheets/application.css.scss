@@ -225,7 +225,7 @@
 
 .card-box {
   width: 688px;
-  height: 500px;
+  height: auto;
   margin: 15px auto;
   border:1px solid #DCDDE1;
   border-radius: 6px 6px;
@@ -234,12 +234,10 @@
   width: 649px;
   height: 387px;
   margin: 20px auto;
-  //border: 1px solid gray;
 }
 .card-head {
   width: 649px;
   height: 75px;
-  //border-bottom: 1px solid gray;
   display: -webkit-inline-box;
 }
 .card-avatar {
@@ -308,3 +306,113 @@
 .like-icon i {
   cursor: pointer;
 }
+
+//comment 
+.comment-box {
+  width: 687px;
+  height: auto;
+  border-top: 1px solid #DCDDE1;
+  margin: 0px auto;
+  border-radius: 0px 0px 6px 6px;
+}
+
+.comment-user {
+  width: 649px;
+  height: auto;
+  margin: 18px 16px;
+  display: -webkit-inline-box;
+}
+.avt-user {
+  width: 57px;
+  height: 52px;
+}
+.avt-user img {
+  border-radius: 50%;
+  width: 50px;
+  height: 50px;
+}
+.comment {
+  max-width: 590px;
+  width: auto;
+  height: auto;
+  padding: 0px 10px;
+}
+.cm-1 {
+  background-color: #eff1f3;
+  border-radius: 18px;
+  line-height: 16px;
+  font-size: 13px;
+  min-height: 39px;
+  padding: 11px 16px;
+  max-width: 572px;
+  word-wrap: break-word;
+  width: max-content;
+}
+.lkandcm-cm {
+  padding-left: 16px;
+  font-size: 12px;
+}
+.lkandcm-cm a{
+  text-decoration: none;
+  margin-right: 4px;
+  color: #4329c4;
+}
+.write-text {
+  width: 590px;
+  height: auto;
+}
+.ip-comment {
+  width: 598px;
+  min-height: 50px;
+  border-radius: 50px;
+  border: 1px solid #CBCED4;
+  background-color: #F2F2F5;
+  font-size: 15px;
+  padding: 1px 28px;
+  outline: 0;
+}
+.comment-user-1{
+  @extend .comment-user ;
+}
+.cmandedit {
+  position: relative;
+  display: inline-block;
+  cursor: pointer;
+  display: none;
+}
+.comment-user:hover .cmandedit{
+  display: block;
+}
+.dropdown-cmandedit {
+  display: none;
+  position: absolute;
+  background-color: #fff;
+  min-width: 160px;
+  box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+  z-index: 1;
+  color: #212529;
+  border: 1px solid rgba(0, 0, 0, 0.15);
+  border-radius: 0.25rem;
+  font-size: 1rem;
+  text-align: left;
+  min-height: 81px;
+  line-height: 40px;
+  width: 100%;
+}
+.cmandedit:hover .dropdown-cmandedit {
+  display: block;
+  cursor: pointer;
+}
+.edit-cm {
+  width: 100%;
+  height: 50%;
+  padding: 0px 23px;
+  margin: 8px 0px;
+}
+.delete-cm {
+  @extend .edit-cm ;
+}
+.cmandedit:hover .dropdown-cmandedit div:hover{
+  background-color: #F8F9FA;
+}
+//background-color: rgba(0, 0, 0, .4);
