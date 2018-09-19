@@ -1,0 +1,7 @@
+<div class = "write-text">
+  <%= form_for  edit_post_comment_path(@comment), html: {id: 'edit-comment', data_post: post.id, data_id: @comment.id}  do |comment| %>
+    <div class="form-wr">
+      <%= comment.text_field :content, class: "ip-comment", placeholder: "Write comment...", autocomplete: 'off', value: "#{@comment.content}" %>
+    </div>
+  <% end %>
+</div>

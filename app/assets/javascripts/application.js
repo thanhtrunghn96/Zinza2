@@ -144,3 +144,101 @@ $(document).on('click', '.love-black', function(event){
     },
   });
 });
+
+// Comment
+// show comment
+$(document).on('click', '.cm-icon', function(event){
+  event.preventDefault();
+  var post_id = $(this).data('id');
+  $.ajax({
+    url: `posts/${post_id}/comments`,
+    method: 'get',
+    data: {post_id: post_id},
+    dataType: 'html',
+    success: function(partial) {
+      $( event.target).parents('.card-box').append(partial);
+      $( event.target).parent().html('<i class="fa fa-comments-o fa-2x cm1-icon" aria-hidden="true" data-id = "' + post_id + '"></i>');
+    },
+  });
+});
+//hide comment
+$(document).on('click', '.cm1-icon', function(event){
+  event.preventDefault();
+  var post_id = $(this).data('id');
+  $(event.target).parents('.card-box').find('.comment-box').css('display','none');
+  $( event.target).parent().html('<i class="fa fa-comments-o fa-2x cm-icon" aria-hidden="true" data-id = "' + post_id + '"></i>');
+});
+//puts comment
+$(document).on('submit','#add-comment', function(event){
+  event.preventDefault();
+  debugger
+  var url = $(this).attr('action');
+  var post_id = $(this).attr('data');
+  var content = $(this).find('.ip-comment').val();
+  $.ajax({
+    url: url,
+    method: 'post',
+    data: {comment: {post_id: post_id, content: content}},
+    dataType: 'html',
+    success: function(partial) {
+      // $(event.target).parents('.comment-box').find('.comment-user').last().after(partial);
+      $(event.target).parents('.comment-text').before(partial);
+      $(event.target).find('.ip-comment').val('');
+      var countcomment = $(event.target).parents('.comment-box').find('.comment-user').last().find('.lkandcm-cm').find('p').text();
+      $(event.target).parents('.card-box').find('.like-box').find('.like-box-head').find('.count-comments').text(countcomment);
+    },
+  });
+});
+//edit comment
+$(document).on('click','.edit-cm', function(event){
+  event.preventDefault();
+  var comment = $(this).data('id');
+  var post = $(this).data('post');
+  $.ajax({
+    url:`posts/${post}/comments/${comment}/edit`,
+    method: 'get',
+    data: {id: comment, post_id: post},
+    dataType: 'html',
+    success: function(partial) {
+      $(this).parents('.comment-box').find('.comment-text').attr('hidden', true);
+      $(this).parents('.cmandedit').prev().html(partial);
+      $(this).parents('.cmandedit').remove();
+    }.bind(this),
+  });
+});
+
+$(document).on('submit', '#edit-comment', function(event){
+  event.preventDefault();
+  debugger
+  var comment_id = $(this).attr('data_id');
+  var post_id = $(this).attr('data_post');
+  var content = $(this).find('.ip-comment').val();
+  debugger
+  $.ajax({
+    url:`posts/${post_id}/comments/${comment_id}`,
+    method: 'put',
+    data: {comment: {post_id: post_id, content: content}, id: comment_id},
+    dataType: 'html',
+    success: function(partial) {
+      $(this).parents('.comment-box').find('.comment-text').attr('hidden', false);
+      $(this).parents('.comment-user').replaceWith(partial);
+    }.bind(this)
+  });
+});
+//delete comment
+$(document).on('click','.delete-cm', function(event){
+  event.preventDefault();
+  var comment = $(this).data('id');
+  var post = $(this).data('post');
+  $.ajax({
+    url:`posts/${post}/comments/${comment}`,
+    method: 'delete',
+    data: {id: comment, post_id: post},
+    dataType: 'json',
+    success: function(data) {
+      var count = data.count_comments + ' ' + 'Comment';
+      $(this).parents('.comment-box').prev().find('.like-box-head').find('.count-comments').text(count);
+      $(this).parents('.comment-user').remove();
+    }.bind(this),
+  });
+});

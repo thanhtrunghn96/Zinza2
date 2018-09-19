@@ -1,0 +1,28 @@
+<div class = "comment-user">
+  <div class = "avt-user">
+    <%= image_tag 'jeans2.jpg', alt: 'avatar' %>
+  </div>
+  <div class = "comment">
+    <div class = "cm-1">
+      <span class = "user-name"><a><%= comment.user.name %></a></span>
+      <span class = "user-cm"><%= comment.content %></span>
+    </div>
+    <div class = "lkandcm-cm">
+      <a class = "like-cm" href = "">Like</a>
+      <a class = "comment-cm" href = "">Comment</a>
+      <p hidden><%= count_comments %> Comment</p>
+      <span style = "color: #657786;"><%= time_ago_in_words(comment.updated_at) %></span>
+    </div>
+  </div>
+  <div class="cmandedit">
+    <span style = "font-size: 18px;color: #9F9FA9;">...</span>
+    <div class="dropdown-cmandedit">
+      <div class = "edit-cm" data-id = "<%= comment.id%>" data-post = "<%= comment.post.id %>">
+        <span><i class="fa fa-pencil"></i> Edit</span>
+      </div>
+      <div class = "delete-cm"  data-id = "<%= comment.id%>" data-post = "<%= comment.post.id %>">
+        <span><i class="fa fa-trash-o"></i> Delete</span>
+      </div>
+    </div>
+  </div>
+</div>
