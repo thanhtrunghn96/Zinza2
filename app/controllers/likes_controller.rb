@@ -1,6 +1,7 @@
 class LikesController < ApplicationController
 before_action :authenticate_user!
 skip_before_action :verify_authenticity_token
+
   def create  
     @like = current_user.likes.build(like_params)
     post = Post.find_by(id: params[:post][:post_id])

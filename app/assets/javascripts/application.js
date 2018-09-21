@@ -20,7 +20,7 @@
 //= require_tree .
 //= require toastr
 
-$(document).ready(function(){
+//$(document).ready(function(){
   // $('#new_post').submit(function(event) {
   //   event.preventDefault();
   //   var method = $(this).attr('method');
@@ -38,18 +38,62 @@ $(document).ready(function(){
   //     },
   //      });
   //   });
-
+  //  });
   // Creat post
-  $(document).on('submit', '#new_post', function(event) {
-    event.preventDefault();
+  function getBase64(file, onLoadCallback) {
+    return new Promise(function(resolve, reject) {
+      var reader = new FileReader();
+      reader.onload = function() { resolve(reader.result); };
+      reader.onerror = reject;
+      reader.readAsDataURL(file);
+    });
+  }
+$(document).on('submit', '#new_post',async function(event) {
+  event.preventDefault();
+  var count_file = $("input:file")[0].files.length;
+  var params_picture = "";
+  var a  = [];
+  if ( count_file != 0){
+    for(var i = 0; i < count_file; i++){
+      var file = $("#images_").prop('files')[`${i}`];
+      var base64_data = "";
+      if(file != " "){
+        var promise = getBase64(file);
+        debugger;
+        var base64_data = await promise;
+        var b = `${i}`;
+        var c =  '"' + b + '"' + ':{"picture_url":' + '"' + base64_data + '"}';
+        a.push(c);
+      };
+    }
+    params_picture = a.join(",");
+    params_picture = '{'+ params_picture +'}';
     var method = $(this).attr('method');
     var url = $(this).attr('action');
     var content = $(this).find('#post_content').val();
-    var images = $(this).find('#images_').val();
+  // var images = $(this).find('#images_').val();
     $.ajax({
       method: method,
       url: url,
-      data: { post: {content: content}, images: images},
+      data: { post: {content: content}, images: JSON.parse(params_picture)},
+      dataType: 'html',
+      success: function(partial) {
+        $('images_').prop('disabled', false);
+        $('#post_content').val('');
+        $('#images_').val('');
+        $("#all_post").prepend(partial);
+      },
+    });
+  }
+  else
+  {
+    var method = $(this).attr('method');
+    var url = $(this).attr('action');
+    var content = $(this).find('#post_content').val();
+    $.ajax({
+      method: method,
+      url: url,
+      data: { post: {content: content}},
       dataType: 'html',
       success: function(partial) {
         $(':input[type="submit"]').prop('disabled', false);
@@ -58,21 +102,55 @@ $(document).ready(function(){
         $("#all_post").prepend(partial);
       },
     });
-  });
+  }
+});
   
   //Delete post
-  $(document).on('click', '#destroy-post', (event) => {
-    event.preventDefault();
-    var id = $(event.target).data('id');
-    $.ajax({
-      url:"posts/" + id, //`posts/${id}` 
-      method: 'delete',
-      dataType: 'json',
-      data: {id: id},
-      success: function(respone) {
-        $(event.target).parents('.card-box').remove();
-      },
-    });
+$(document).on('click', '#destroy-post', (event) => {
+  event.preventDefault();
+  var id = $(event.target).data('id');
+  $.ajax({
+    url:"posts/" + id, //`posts/${id}` 
+    method: 'delete',
+    dataType: 'json',
+    data: {id: id},
+    success: function(respone) {
+      $(event.target).parents('.card-box').remove();
+    },
+  });
+});
+
+//Show post
+$(document).on('click', '#show-post', function(event){
+  event.preventDefault();
+  var id = $(this).data('id');
+  debugger;
+  $.ajax({
+    url:`posts/${id}`,
+    method: 'get',
+    data: {id: id},
+    dataType: 'html',
+    success: function(partial) {
+      $('#hide-post').attr('hidden', false);
+      $('#hide-post').append(partial);
+      $('#hide-post').find('.card-box').find('#show-post').remove();
+      $('#hide-post').find('.card-box').css({'margin':'0px auto','border':'none'});
+      $('#all').css({'background-color': ' rgba(0, 0, 0, .4)', 'position': 'relative', 'opacity': '0.75'});
+      $('body').css('overflow','hidden');
+      //$('#hide-post').css({'background-color': '#ffffff', 'position': 'fixed', 'opacity':'1','z-index': '1','top':'63px','left':'297px'});
+    },
+  });
+});
+
+$(document).ready(function(){
+  $('body').mouseup(function(event){
+    var hidepost = $('#hide-post');
+    if (event.target.class != hidepost){
+      hidepost.attr('hidden', true);
+      $('#all').removeAttr('style');
+      $('#hide-post').find('.card-box').remove();
+      $('body').css('overflow','auto');
+    }
   });
 });
 // $('#btn').click(() => {}) thay cho function
@@ -123,7 +201,7 @@ $(document).on('click', '.love-white', function(event){
     success: function(data) {
       var count = data.count + ' ' + 'Loved';
       $( event.target).parents('.like-box-icon').prev().find('.count-likes').text(count);
-      $( event.target).closest('.like-icon').html('<i class="fa fa-heart fa-2x love-black" aria-hidden="true" data-id = "' +  data.post_id + '" data-like = "'+ data.like_id + '"></i>');
+      $( event.target).closest('.like-icon').html('<i class="fa fa-heart fa-2x love-black" style = "color:pink" data-id = "' +  data.post_id + '" data-like = "'+ data.like_id + '"></i>');
     },
   });
 });
@@ -140,7 +218,7 @@ $(document).on('click', '.love-black', function(event){
     success: function(data) {
       var count = data.count + ' ' + 'Loved';
       $( event.target).parents('.like-box-icon').prev().find('.count-likes').text(count);
-      $( event.target).closest('.like-icon').html('<i class="fa fa-heart-o fa-2x love-white" aria-hidden="true" data-id = "' +  data.post_id + '"></i>');
+      $( event.target).closest('.like-icon').html('<i class="fa fa-heart-o fa-2x love-white" data-id = "' +  data.post_id + '"></i>');
     },
   });
 });
@@ -241,4 +319,35 @@ $(document).on('click','.delete-cm', function(event){
       $(this).parents('.comment-user').remove();
     }.bind(this),
   });
+});
+
+//scroll page
+var i = 1;
+$(window).scroll(function(){
+  if($(window).scrollTop() + $(window).height() == $(document).height()) {
+    i++;
+    load_more_post = '/?page=' + i;
+    $.ajax({
+      method: "GET",
+      url: load_more_post,
+      dataType: 'html',
+      success: function(data){
+        $('#all_post').append(data);
+      }
+    });
+  }
+});
+//preview images
+function readURL(input) {
+  if (input.files && input.files[0]) {
+    var reader = new FileReader();
+    reader.onload = function(e) {
+      $('#previewimage').attr('src', e.target.result);
+    }
+    reader.readAsDataURL(input.files[0]);
+  }
+}
+
+$('#images_').change(function() {
+  readURL(this);
 });

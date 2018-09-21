@@ -12,10 +12,10 @@
           </div>
         </div>
         <%= file_field_tag 'images[]', type: :file, multiple: true, style: 'margin: 6px 8px;', class: 'btn btn-light'%>
-        <div class="dz-message"></div>
         <div class = "dropzone-previews">
           <div class = "upload-photos-icon">
-            <i class = "fa fa-plus fa-2x" aria-hidden = "true" style = "color:#DCDCDC"></i>
+            <img id="previewimage" alt="image" width="100px" height="100px"/>
+            <%# <i class = "fa fa-plus fa-2x" aria-hidden = "true" style = "color:#DCDCDC"></i> %>
           </div>
         </div>
         <%= f.submit 'Post', id: 'submit-post',class: 'btn btn-outline-info btn-lg',style:'float:right;margin-right: 19px;' %>

@@ -1,10 +1,12 @@
 class PostsController < ApplicationController
   skip_before_action :verify_authenticity_token
   before_action :authenticate_user!
-  before_action :find_id, only: [:show, :edit, :destroy, :update]
+  before_action :find_id, only: [:show, :edit, :destroy, :update, :show]
+  
   def index
-    @posts = Post.all.limit(10)
+    @posts = Post.page(params[:page]).per(5)
     @post =  Post.new
+    render_load_perpage and return if request.xhr?
   end
  
   def new ;end
@@ -13,8 +15,9 @@ class PostsController < ApplicationController
     @post = current_user.posts.build(post_params)
     if @post.save
       if params[:images]
-        #params[:images].each do |img|
-        @post.photos.create(image: params[:images])
+        params[:images].each do |img|
+          @post.photos.create(image: img)
+        end
       end
       respond_to do |format|
         # format.json {render json: @post }
@@ -25,6 +28,14 @@ class PostsController < ApplicationController
     else
       flash[:danger] = "Can't save"
       redirect_to posts_path
+    end
+  end
+
+  def show   
+    respond_to do |format|
+      format.html do
+        render '_listposts', layout: false, locals: {post: @post}
+      end
     end
   end
 
@@ -61,5 +72,9 @@ class PostsController < ApplicationController
 
   def find_id
     @post = Post.find_by(id: params[:id])
+  end
+
+  def render_load_perpage
+    render 'pagekaminari', layout: false
   end
 end

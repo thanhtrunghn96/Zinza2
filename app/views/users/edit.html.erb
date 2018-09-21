@@ -1,0 +1,32 @@
+<%= form_for @user, html: {id: 'edit-user-form'} do |f| %>
+  <% if @user.errors.any? %>
+    <div class="alert alert-danger">
+      <ul>
+      <% @user.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+  <div class="container c-user-edit">
+    <h1>Profile</h1>
+    <hr>
+      <label for="name"><b>Name</b></label>
+      <%= f.text_field :name, placeholder: "Enter Email", value:"#{@user.name}", autocomplete: 'off' %>
+
+      <label for="email"><b>Email</b></label>
+      <%= f.text_field :email, placeholder: "Enter Email", value:"#{@user.email}", autocomplete: 'off' %>
+
+       <label>
+        <input type="checkbox" checked="checked" name="remember" style="margin-bottom:15px"> Change Password
+      </label>
+      <br>
+      <label for="psw"><b>Password</b></label>
+      <%= f.password_field :password, placeholder: "Enter Password", value:"#{@user.password}" %>
+
+    <div class="user-edit-b">
+      <button type="button" class="cancelbtn">Cancel</button>
+      <button type="submit" class="signupbtn">Edit</button>
+    </div>
+  </div>
+<% end %>
