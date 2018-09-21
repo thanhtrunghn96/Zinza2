@@ -274,6 +274,9 @@
 #edit-post{
   cursor: pointer;
 }
+#show-post{
+  cursor: pointer;
+}
 #post-edit-content {
   margin:4px 0px 0px 2px !important;
   background-color: #ffffff;
@@ -416,3 +419,62 @@
   background-color: #F8F9FA;
 }
 //background-color: rgba(0, 0, 0, .4);
+
+//show post
+#hide-post {
+  background-color: #ffffff;
+  position: fixed;
+  z-index: 1;
+  top: 63px;
+  left: 304px;
+  opacity: 1;
+  border-radius: 6px 6px;
+  border: 1px solid #DCDDE1;
+}
+//edit-user-form
+#edit-user-form {
+  width: 800px;
+}
+#edit-user-form input[type=text], input[type=password] {
+  width: 100%;
+  padding: 15px;
+  margin: 5px 0 22px 0;
+  display: inline-block;
+  border: none;
+  background: #f1f1f1;
+}
+#edit-user-form input[type=text]:focus, input[type=password]:focus{
+  background-color: #ddd;
+  outline: none;
+}
+
+hr {
+  border: 1px solid #f1f1f1;
+  margin-bottom: 25px;
+}
+
+#edit-user-form button{
+  background-color:#5F91FA;
+  color: white;
+  padding: 14px 20px;
+  margin: 8px 0;
+  border: none;
+  cursor: pointer;
+  width: 50%;
+  opacity: 0.9;
+  font-weight: 800;
+}
+#edit-user-form button:hover{
+  opacity:1;
+}
+#edit-user-form .cancelbtn {
+  padding: 14px 20px;
+  background-color: #f44336;
+}
+.c-user-edit {
+  padding: 16px;
+}
+.cancelbtn, .signupbtn {
+  float: left;
+  width: 50%;
+}

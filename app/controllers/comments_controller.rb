@@ -3,6 +3,7 @@ class CommentsController < ApplicationController
   before_action :authenticate_user!
   before_action :find_comment, only: [:update, :edit, :destroy]
   before_action :find_post, only: [:index, :edit, :destroy]
+  
   def index
     respond_to do |format|
       format.html do
