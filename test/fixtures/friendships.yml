@@ -1,0 +1,11 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  user_request: 1
+  user_response: 1
+  status: MyString
+
+two:
+  user_request: 1
+  user_response: 1
+  status: MyString

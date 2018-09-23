@@ -110,7 +110,7 @@ $(document).on('click', '#destroy-post', (event) => {
   event.preventDefault();
   var id = $(event.target).data('id');
   $.ajax({
-    url:"posts/" + id, //`posts/${id}` 
+    url: window.location.origin + '/posts/' + id, //`posts/${id}` 
     method: 'delete',
     dataType: 'json',
     data: {id: id},
@@ -126,7 +126,7 @@ $(document).on('click', '#show-post', function(event){
   var id = $(this).data('id');
   debugger;
   $.ajax({
-    url:`posts/${id}`,
+    url: window.location.origin + `/posts/${id}`,
     method: 'get',
     data: {id: id},
     dataType: 'html',
@@ -161,7 +161,7 @@ $(document).on('click','#edit-post', function(event){
   //$(event.target).closest(".username-time").next(".card-post-content").find('#post-edit-content').removeAttr('disabled');
   var id = $(event.target).data('id');
   $.ajax({
-    url: `posts/${id}/edit`,
+    url: window.location.origin + `/posts/${id}/edit`,
     method: 'get',
     dataType: 'html',
     data: {id: id},
@@ -177,7 +177,7 @@ $(document).on('submit', '.edit_post', function(event){
   var content = $(this).find('#post-edit-content').val();
   var id = $(this).attr('data');
   $.ajax({
-    url:`posts/${id}`,
+    url: window.location.origin + `/posts/${id}`,
     method: 'put',
     data: {post: {content: content} },
     dataType: 'json',
@@ -189,12 +189,12 @@ $(document).on('submit', '.edit_post', function(event){
 });
 
 //Liked post
-
+// like
 $(document).on('click', '.love-white', function(event){
   event.preventDefault();
   var post_id = $(this).data('id');
   $.ajax({
-    url: `posts/${post_id}/likes`,
+    url: window.location.origin + `/posts/${post_id}/likes`,
     method: 'post',
     data: {post: {post_id: post_id}},
     dataType: 'json',
@@ -205,13 +205,13 @@ $(document).on('click', '.love-white', function(event){
     },
   });
 });
-
+//unlike
 $(document).on('click', '.love-black', function(event){
   event.preventDefault();
   var post_id = $(this).data('id');
   var like_id =  $(this).data('like');
   $.ajax({
-    url: `posts/${post_id}/likes/${like_id}`,
+    url: window.location.origin + `/posts/${post_id}/likes/${like_id}`,
     method: 'delete',
     data: {id: like_id},
     dataType: 'json',
@@ -229,7 +229,7 @@ $(document).on('click', '.cm-icon', function(event){
   event.preventDefault();
   var post_id = $(this).data('id');
   $.ajax({
-    url: `posts/${post_id}/comments`,
+    url: window.location.origin + `/posts/${post_id}/comments`,
     method: 'get',
     data: {post_id: post_id},
     dataType: 'html',
@@ -249,12 +249,11 @@ $(document).on('click', '.cm1-icon', function(event){
 //puts comment
 $(document).on('submit','#add-comment', function(event){
   event.preventDefault();
-  debugger
   var url = $(this).attr('action');
   var post_id = $(this).attr('data');
   var content = $(this).find('.ip-comment').val();
   $.ajax({
-    url: url,
+    url: window.location.origin + url,
     method: 'post',
     data: {comment: {post_id: post_id, content: content}},
     dataType: 'html',
@@ -268,12 +267,17 @@ $(document).on('submit','#add-comment', function(event){
   });
 });
 //edit comment
+$(document).on('click','.cmandedit', function(event){
+  event.preventDefault();
+  $(this).find('.dropdown-cmandedit').css('display','block');
+});
+
 $(document).on('click','.edit-cm', function(event){
   event.preventDefault();
   var comment = $(this).data('id');
   var post = $(this).data('post');
   $.ajax({
-    url:`posts/${post}/comments/${comment}/edit`,
+    url: window.location.origin + `/posts/${post}/comments/${comment}/edit`,
     method: 'get',
     data: {id: comment, post_id: post},
     dataType: 'html',
@@ -287,13 +291,11 @@ $(document).on('click','.edit-cm', function(event){
 
 $(document).on('submit', '#edit-comment', function(event){
   event.preventDefault();
-  debugger
   var comment_id = $(this).attr('data_id');
   var post_id = $(this).attr('data_post');
   var content = $(this).find('.ip-comment').val();
-  debugger
   $.ajax({
-    url:`posts/${post_id}/comments/${comment_id}`,
+    url: window.location.origin + `/posts/${post_id}/comments/${comment_id}`,
     method: 'put',
     data: {comment: {post_id: post_id, content: content}, id: comment_id},
     dataType: 'html',
@@ -309,7 +311,7 @@ $(document).on('click','.delete-cm', function(event){
   var comment = $(this).data('id');
   var post = $(this).data('post');
   $.ajax({
-    url:`posts/${post}/comments/${comment}`,
+    url: window.location.origin + `/posts/${post}/comments/${comment}`,
     method: 'delete',
     data: {id: comment, post_id: post},
     dataType: 'json',
@@ -326,7 +328,10 @@ var i = 1;
 $(window).scroll(function(){
   if($(window).scrollTop() + $(window).height() == $(document).height()) {
     i++;
-    load_more_post = '/?page=' + i;
+    var urllll = window.location.href
+    // console.log(urllll);
+    load_more_post = urllll+ '/?page=' + i;
+    console.log(load_more_post);
     $.ajax({
       method: "GET",
       url: load_more_post,
