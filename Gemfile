@@ -1,20 +1,23 @@
+# frozen_string_literal: true
+
 source 'https://rubygems.org'
 git_source(:github) { |repo| "https://github.com/#{repo}.git" }
 
 ruby '2.5.1'
-#Trung add
-gem 'devise'
+# Trung add
 gem 'bootstrap', '~> 4.1.3'
-gem 'pry'
-gem 'jquery-rails'
-gem 'toastr-rails'
 gem 'carrierwave', '~> 1.0'
-gem 'cloudinary'
-gem "cocoon"
-gem 'dropzonejs-rails'
 gem 'carrierwave-base64'
+gem 'cloudinary'
+gem 'cocoon'
+gem 'devise'
+gem 'dropzonejs-rails'
 gem "font-awesome-rails"
+gem 'jquery-rails'
 gem 'kaminari'
+gem 'pry'
+gem 'toastr-rails'
+
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
 gem 'rails', '~> 5.2.0'
 # Use mysql as the database for Active Record
@@ -67,6 +70,7 @@ group :test do
   gem 'selenium-webdriver'
   # Easy installation and use of chromedriver to run system tests with Chrome
   gem 'chromedriver-helper'
+  gem 'rubocop'
 end
 
 # Windows does not include zoneinfo files, so bundle the tzinfo-data gem

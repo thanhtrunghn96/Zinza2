@@ -402,8 +402,8 @@
   line-height: 40px;
   width: 100%;
 }
-.cmandedit:hover .dropdown-cmandedit {
-  display: block;
+.dropdown-cmandedit {
+  display: none;
   cursor: pointer;
 }
 .edit-cm {
@@ -477,4 +477,74 @@ hr {
 .cancelbtn, .signupbtn {
   float: left;
   width: 50%;
+}
+
+//wall users
+.user-information {
+  width: 928px;
+  height: 268px;
+  margin: auto;
+  display: -webkit-box;
+  border-top:1px solid #EEEEEF;
+  border-bottom: 1px solid #EEEEEF;
+  background-color: #FAFAFA;
+}
+.user-information .avatar-user-wall {
+  width:  40%;
+  height: 100%;
+}
+.img-wall {
+  width: 37%;
+  height: 50%;
+  margin: 49px auto;
+}
+.img-wall img {
+  width: 100%;
+  height: 100%;
+  border-radius: 50%;
+}
+.info-uswall {
+  width: 60%;
+  height: 100%;
+}
+.email-fsh {
+  width: 100%;
+  height: 19%;
+  max-width: 100%;
+  margin-top: 47px;
+  display: -webkit-inline-box;
+}
+.email-fsh h3 {
+  font-weight: 200;
+  overflow: hidden;
+  max-width: 70%;
+  width: 70%;
+}
+.email-fsh .btn-addfriend {
+  max-width: 30%;
+  width: 30%;
+  padding-left: 28px;
+}
+.btn-addfriend button {
+  border-color: #DADADA;
+  font-weight: 600;
+  font-size: 14px;
+  height: 30px;
+  background-color: white;
+}
+.info-pfl {
+  width: 100%;
+  height: 17%;
+}
+.info-pfl span {
+  font-size: 17px;
+  margin-right: 31px;
+}
+.ifuser-name {
+  width: 100%;
+  height: 17%;
+}
+.ifuser-name span {
+  font-size: 16px;
+  font-weight: 600;
 }

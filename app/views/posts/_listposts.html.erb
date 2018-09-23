@@ -2,24 +2,24 @@
   <div class = "card-inside">
     <div class = "card-head">
         <div class = "card-avatar">
-          <%= image_tag 'jeans2.jpg', class:'img-avatar', alt: 'jeans2.jpg'%>
+          <%= image_tag post.user.avatar.url,class:'img-avatar', alt: 'avatar.jpg' %>
         </div>
         <div class = "time-content">
           <div class = "username-time">
-            <span class = "user-name"><a><%= post.user.name %></a></span>
+            <span class = "user-name"><%= link_to post.user.name, user_path(post.user),method: :get %></span>
             <span class = "time-post" style = "color: #657786;margin-left: 5px;"><%= time_ago_in_words(post.updated_at) %></span>
-            <% if post.user == current_user%>
             <div class="btn-group drop-down-edl">
               <button type="button" class="btn btn-light dropdown-toggle dropdown-toggle-split" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false", style ="padding: 0px 9px;">
                 <span class="sr-only">Toggle Dropdown</span>
               </button>
               <div class="dropdown-menu">
+                <% if post.user == current_user%>
                 <button id="edit-post" class= "dropdown-item" data-id="<%= post.id %>">Edit</button>
                 <button id="destroy-post" class= "dropdown-item" data-id="<%= post.id %>">Delete</button>
+                <% end %>
                 <button id="show-post" class= "dropdown-item" data-id="<%= post.id %>">Show</button>
               </div>
             </div>
-            <% end %>
           </div>
           <div class = "card-post-content">
             <%= text_field_tag 'post-edit-content', post.content, class:'form-control post-text', disabled: 'on' %>
@@ -48,8 +48,8 @@
   <div class = "like-box">
     <div class = "like-box-head">
       <i class = "fa fa-heart" style ="margin:8px 4px 8px 19px;"></i>
-      <span class = "count-likes"><%= post.likes.count()%> Loved</span>
-      <span class = "count-comments" style = "float:right;margin: 3px 21px;"><%= post.comments.count()%> Comment</span>
+      <span class = "count-likes"><%= post.likes.count %> Loved</span>
+      <span class = "count-comments" style = "float:right;margin: 3px 21px;"><%= post.comments.count %> Comment</span>
     </div>
     <div class = "like-box-icon">
     <% if post.liked(current_user).nil? %>

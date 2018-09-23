@@ -72,9 +72,10 @@ class PostsController < ApplicationController
 
   def find_id
     @post = Post.find_by(id: params[:id])
+    render 'shared/_404' if @post.nil?
   end
 
   def render_load_perpage
-    render 'pagekaminari', layout: false
+    render '_pagekaminari', layout: false
   end
 end

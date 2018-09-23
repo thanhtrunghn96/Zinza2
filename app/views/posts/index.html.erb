@@ -5,7 +5,7 @@
       <%= form_for @post, html: {class: 'upload-images', multipart: true} do |f| %>
         <div class = "pb-avatar-content">
           <div class =  "pb-avatar">
-            <%= image_tag 'jeans2.jpg', class:'img-avatar', alt: 'avarta' %>
+            <%= image_tag current_user.avatar.url,class:'img-avatar', alt: 'avatar.jpg' %>
           </div>
           <div class = "pb-content">
             <%= f.text_area :content, class:'form-control post-text', Placeholder: 'Say something about this ...', autocomplete: 'off'%>

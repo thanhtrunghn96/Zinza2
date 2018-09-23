@@ -5,8 +5,8 @@ skip_before_action :verify_authenticity_token
   def create  
     @like = current_user.likes.build(like_params)
     post = Post.find_by(id: params[:post][:post_id])
-    if @like.save()
-      count_likes = post.likes.count()
+    if @like.save
+      count_likes = post.likes.count
       respond_to do |format|
         format.json { render json: {count: count_likes, post_id: @like.post_id, like_id: @like.id} }
       end
@@ -18,7 +18,7 @@ skip_before_action :verify_authenticity_token
     post_id = @like.post_id
     post = Post.find_by(id: post_id)
     if @like.destroy
-      count_likes = post.likes.count()
+      count_likes = post.likes.count
       respond_to do |format|
         format.json{ render json: {count: count_likes, post_id: post_id} }
       end

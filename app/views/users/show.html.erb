@@ -1,0 +1,34 @@
+<div class = "container">
+  <div  class = "user-information">
+    <div class = "avatar-user-wall">
+      <div class = "img-wall">
+        <%= image_tag @user.avatar.url, alt: 'avatar.jpg' %>
+      </div>
+    </div>
+    <div class = "info-uswall">
+      <div class = "email-fsh">
+        <h3><%=@user.email%></h3>
+        <%= form_for new_friendship_path, html: {class:'btn-addfriend'} do |f|%>
+          <%= f.hidden_field:user_response, value: "#{@user.id}", name:'friendship[user_response]', id: 'user-rsp' %>
+          <button type="submit" class="btn btn-light btn-md">Add Friend</button>
+        <% end %>
+      </div>
+      <div class = "info-pfl">
+        <span><b><%= @user.posts.count %></b> posts</span>
+        <span><b>0</b> followers</span>
+        <span><b>0</b> following</span>
+      </div>
+      <div class = "ifuser-name"><span><%=@user.name %></span></div>
+    </div>
+  </div>
+  <div id="all_post">
+    <% @posts.each do |post| %>
+      <%= render 'posts/listposts', post: post  %>
+    <% end%> 
+  </div>
+</div>
+<%# #TODO
+check nil?
+rubocop
+loi save() va ;
+ %>
