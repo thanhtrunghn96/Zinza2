@@ -1,4 +1,4 @@
-<%= form_for @user, html: {id: 'edit-user-form'} do |f| %>
+<%= form_for @user, html: {id: 'edit-user-form', data: current_user.id} do |f| %>
   <% if @user.errors.any? %>
     <div class="alert alert-danger">
       <ul>
@@ -9,24 +9,31 @@
     </div>
   <% end %>
   <div class="container c-user-edit">
-    <h1>Profile</h1>
+    <h1><b>Profile</b></h1>
     <hr>
-      <label for="name"><b>Name</b></label>
-      <%= f.text_field :name, placeholder: "Enter Email", value:"#{@user.name}", autocomplete: 'off' %>
+      <div class = "img-edit-u">
+        <div class = "img-edit-u1">
+          <%= image_tag "#{@user.avatar}", alt: 'avatar.jpg', id: 'output-img-edit' %>
+        </div>
+         <%= f.file_field :avatar, class: 'btn btn-light', accept:"image/*", onchange:"loadFile(event)" %>
+      </div>
 
-      <label for="email"><b>Email</b></label>
-      <%= f.text_field :email, placeholder: "Enter Email", value:"#{@user.email}", autocomplete: 'off' %>
+      <%= f.label :name %>
+      <%= f.text_field :name, placeholder: "Enter Name", value:"#{@user.name}", autocomplete: 'off' %>
+
+      <%= f.label :email %>
+      <%= f.email_field :email, placeholder: "Enter Email", value:"#{@user.email}", autocomplete: 'off' %>
 
        <label>
-        <input type="checkbox" checked="checked" name="remember" style="margin-bottom:15px"> Change Password
+        <input type="checkbox" class = "checked-box" name="remember" style="margin-bottom:15px"> Change Password
       </label>
       <br>
-      <label for="psw"><b>Password</b></label>
-      <%= f.password_field :password, placeholder: "Enter Password", value:"#{@user.password}" %>
+      <%= f.label :password %>
+      <%= f.password_field :password, placeholder: "Enter Password", value:"#{@user.password}", disabled: true %>
 
     <div class="user-edit-b">
       <button type="button" class="cancelbtn">Cancel</button>
-      <button type="submit" class="signupbtn">Edit</button>
+      <button type="submit" class="editbtn">Edit</button>
     </div>
   </div>
 <% end %>

@@ -1,21 +1,27 @@
+# frozen_string_literal: true
+
 class UsersController < ApplicationController
   before_action :authenticate_user!
-  before_action :find_user, only: [:edit, :update, :show]
-  
+  before_action :find_user, only: %i[edit update show]
+
   def show
     @posts = @user.posts.page(params[:page]).per(5)
-    render_load_perpage and return if request.xhr?
+    render_load_perpage && return if request.xhr?
   end
 
   def edit
-    # respond_to do |format|
-    #   format html do
-    #     render 'edit', layout:false
-    #   end
-    # end
+    respond_to do |format|
+      format.html do
+        render 'edit', layout: false
+      end
+    end
   end
+
   def update
     @user.update(user_params)
+    respond_to do |format|
+      format.json { render to json: { success: true } }
+    end
   end
 
   private

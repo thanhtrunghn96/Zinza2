@@ -434,8 +434,21 @@
 //edit-user-form
 #edit-user-form {
   width: 800px;
+  position: absolute;
+  z-index: 2;
+  background-color: #ffffff;
+  left: 265px;
 }
-#edit-user-form input[type=text], input[type=password] {
+#edit-user-form label {
+  font-weight: bold;
+}
+#edit-user-form input[type=checkbox] {
+  width: 24px;
+  height: 24px;
+  position: relative;
+  top: 6px;
+}
+#edit-user-form input[type=text], input[type=password], input[type=email] {
   width: 100%;
   padding: 15px;
   margin: 5px 0 22px 0;
@@ -443,7 +456,7 @@
   border: none;
   background: #f1f1f1;
 }
-#edit-user-form input[type=text]:focus, input[type=password]:focus{
+#edit-user-form input[type=text]:focus, input[type=password], input[type=email]:focus{
   background-color: #ddd;
   outline: none;
 }
@@ -477,6 +490,27 @@ hr {
 .cancelbtn, .signupbtn {
   float: left;
   width: 50%;
+}
+.img-edit-u {
+  width: 100%;
+  height: 100px;
+  display: -webkit-inline-box;
+}
+.img-edit-u input[type=file] {
+  margin-left: 11px;
+  width: 233px;
+  margin-top: 53px;
+  cursor: pointer;
+}
+.img-edit-u1 {
+  width: 100px;
+  height: 100px;
+  border-radius: 50%;
+}
+.img-edit-u1 img {
+  width: 100px;
+  height: 100px;
+  border-radius: 50%;
 }
 
 //wall users
