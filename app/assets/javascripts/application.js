@@ -59,7 +59,6 @@ $(document).on('submit', '#new_post',async function(event) {
       var base64_data = "";
       if(file != " "){
         var promise = getBase64(file);
-        debugger;
         var base64_data = await promise;
         var b = `${i}`;
         var c =  '"' + b + '"' + ':{"picture_url":' + '"' + base64_data + '"}';
@@ -142,17 +141,17 @@ $(document).on('click', '#show-post', function(event){
   });
 });
 
-$(document).ready(function(){
-  $('body').mouseup(function(event){
-    var hidepost = $('#hide-post');
-    if (event.target.class != hidepost){
-      hidepost.attr('hidden', true);
-      $('#all').removeAttr('style');
-      $('#hide-post').find('.card-box').remove();
-      $('body').css('overflow','auto');
-    }
-  });
-});
+// $(document).ready(function(){
+//   $('body').mouseup(function(event){
+//     var hidepost = $('#hide-post');
+//     if (event.target.class != hidepost){
+//       hidepost.attr('hidden', true);
+//       $('#all').removeAttr('style');
+//       $('#hide-post').find('.card-box').remove();
+//       $('body').css('overflow','auto');
+//     }
+//   });
+// });
 // $('#btn').click(() => {}) thay cho function
 
 //Update post,click edit and submit
@@ -355,4 +354,59 @@ function readURL(input) {
 
 $('#images_').change(function() {
   readURL(this);
+});
+
+//edit user
+var loadFile = function(event) {
+  var reader = new FileReader();
+  reader.onload = function(){
+    var output = document.getElementById('output-img-edit');
+    output.src = reader.result;
+  };
+  reader.readAsDataURL(event.target.files[0]);
+};
+// show edit-form
+$(document).on('click','.profile-icon',function(event){
+  event.preventDefault();
+  var id = $('.profile-icon').attr('data')
+  $.ajax({
+    url: window.location.origin + `/users/${id}/edit`,
+    method: 'get',
+    data: { id: id },
+    dataType: 'html',
+    success: function(partial){
+      $('#all').css({'background-color': ' rgba(0, 0, 0, 1.95)', 'position': 'relative', 'opacity': '0.75'});
+      $('#hide-post').before(partial);
+      $('body').css('overflow','hidden');
+      $('.user-information').hide();
+    },
+  });
+});
+// hide edit-form
+$(document).on('click', '.cancelbtn',function(event){
+  $('#all').removeAttr('style');
+  $('.edit_user').remove();
+  $('body').css('overflow','auto');
+  $('.user-information').show();
+});
+//change password
+$(document).on('click', '.checked-box',function(event){
+  $('#user_password').css('disabled', false)
+});
+//edit-profile
+$(document).on('click', '.editbtn', function(event){
+  event.preventDefault();
+  var email = $(this).find('#user_name').val();
+  var name = $(this).find('#user_email').val();
+  // var password = $(this).find('#user_password').val();
+  var id_user = $(this).find();
+  $.ajax({
+    url: window.location.origin + `users/${id_user}`,
+    method: 'put',
+    data: { user: { email: email, name: name } },
+    dataType: 'json',
+    success: function(respone){
+      alert('Edit Profile Success');
+    },
+  });
 });

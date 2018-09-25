@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class User < ApplicationRecord
   # Include default devise modules. Others available are:
   # :confirmable, :lockable, :timeoutable, :trackable and :omniauthable
@@ -8,6 +10,6 @@ class User < ApplicationRecord
   has_many :posts, dependent: :destroy
   has_many :likes, dependent: :destroy
   has_many :comments, dependent: :destroy
-  has_many :user_request, dependent: :destroy, foreign_key: 'user_request', foreign_key: 'user_request', class_name: 'user_response'
-  has_many :user_response, dependent: :destroy, foreign_key: 'user_response', foreign_key: 'user_response', class_name: 'user_response'
+  has_many :user_request, dependent: :destroy, foreign_key: 'user_request', class_name: 'user_response'
+  has_many :user_response, dependent: :destroy, foreign_key: 'user_response', class_name: 'user_response'
 end

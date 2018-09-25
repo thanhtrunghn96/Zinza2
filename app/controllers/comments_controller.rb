@@ -3,8 +3,8 @@
 class CommentsController < ApplicationController
   skip_before_action :verify_authenticity_token
   before_action :authenticate_user!
-  before_action :find_comment, only: [:update, :edit, :destroy]
-  before_action :find_post, only: [:index, :edit, :destroy]
+  before_action :find_comment, only: %i[update edit destroy]
+  before_action :find_post, only: %i[index edit destroy]
   def index
     respond_to do |format|
       format.html do
@@ -15,12 +15,10 @@ class CommentsController < ApplicationController
 
   def create
     @comment = current_user.comments.build(comment_params)
-    if @comment.save 
-      count_comments = @comment.post.comments.count
-      respond_to do |format|
-        format.html do
-          render 'create', layout: false, locals: { comment: @comment, count_comments: count_comments }
-        end
+    return count_comments = @comment.post.comments.count if @comment.save
+    respond_to do |format|
+      format.html do
+        render 'create', layout: false, locals: { comment: @comment, count_comments: count_comments }
       end
     end
   end
@@ -28,28 +26,24 @@ class CommentsController < ApplicationController
   def edit
     respond_to do |format|
       format.html do
-        render 'edit', layout:false, locals: { comment: @comment, post: @post }
+        render 'edit', layout: false, locals: { comment: @comment, post: @post }
       end
     end
   end
 
   def update
-    if @comment.update(comment_params)
-      count_comments = @comment.post.comments.count
-      respond_to do |format|
-        format.html do
-          render 'create', layout:false, locals: { comment: @comment, count_comments: count_comments }
-        end
+    return count_comments = @comment.post.comments.count if @comment.update(comment_params)
+    respond_to do |format|
+      format.html do
+        render 'create', layout: false, locals: { comment: @comment, count_comments: count_comments }
       end
     end
   end
 
   def destroy
-    if @comment.destroy
-      count_comments = @post.comments.count
-      respond_to do |format|
-        format.json { render json: { count_comments: count_comments } }
-      end
+    return count_comments = @post.comments.count if @comment.destroy
+    respond_to do |format|
+      format.json { render json: { count_comments: count_comments } }
     end
   end
 
