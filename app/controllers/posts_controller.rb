@@ -6,9 +6,9 @@ class PostsController < ApplicationController
   before_action :find_id, only: %i[show edit destroy update show]
 
   def index
-    @search = Post.ransack(params[:q])
-
-    @posts = @search.result.includes(:user).page(params[:page]).per(5)
+    # @search = Post.ransack(params[:q])
+    # @posts = @search.result.includes(:user).page(params[:page]).per(5)
+    @posts = Post.page(params[:page]).per(5)
     @post =  Post.new
     render_load_perpage && return if request.xhr?
   end
@@ -50,8 +50,8 @@ class PostsController < ApplicationController
   end
 
   def update
-    respond_to do |format|
-      if @post.update(post_params)
+    if @post.update(post_params)
+      respond_to do |format|
         # format.json { render json: @post.to_json (only: [:content]) }
         format.json { render json: { success: true } }
       end

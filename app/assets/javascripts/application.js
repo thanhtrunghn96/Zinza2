@@ -123,7 +123,6 @@ $(document).on('click', '#destroy-post', (event) => {
 $(document).on('click', '#show-post', function(event){
   event.preventDefault();
   var id = $(this).data('id');
-  debugger;
   $.ajax({
     url: window.location.origin + `/posts/${id}`,
     method: 'get',
@@ -166,14 +165,14 @@ $(document).on('click','#edit-post', function(event){
     data: {id: id},
     success: function(edit) {
       $(event.target).closest('.username-time').next(".card-post-content").html(edit);
-      $(event.target).closest('.username-time').next('.card-post-content').find('#post-edit-content').css('border','1px solid #D8BFFF');
+      $(event.target).closest('.username-time').next('.card-post-content').find('.post-text').css('border','1px solid #D8BFFF');
     },
   });
 });
 
 $(document).on('submit', '.edit_post', function(event){
   event.preventDefault();
-  var content = $(this).find('#post-edit-content').val();
+  var content = $(this).find('.post-text').val();
   var id = $(this).attr('data');
   $.ajax({
     url: window.location.origin + `/posts/${id}`,
@@ -181,8 +180,8 @@ $(document).on('submit', '.edit_post', function(event){
     data: {post: {content: content} },
     dataType: 'json',
     success: function(respone) {
-      $(event.target).find('#post-edit-content').attr('disabled', true);
-      $(event.target).find('#post-edit-content').css('border','none');
+      $(event.target).find('.post-text').attr('disabled', true);
+      $(event.target).find('.post-text').css('border','none');
     },
   });
 });
@@ -342,19 +341,14 @@ $(window).scroll(function(){
   }
 });
 //preview images
-function readURL(input) {
-  if (input.files && input.files[0]) {
-    var reader = new FileReader();
-    reader.onload = function(e) {
-      $('#previewimage').attr('src', e.target.result);
-    }
-    reader.readAsDataURL(input.files[0]);
-  }
-}
-
-$('#images_').change(function() {
-  readURL(this);
-});
+var loadFile1 = function(event) {
+  var reader = new FileReader();
+  reader.onload = function(){
+    var output = document.getElementById('previewimage');
+    output.src = reader.result;
+  };
+  reader.readAsDataURL(event.target.files[0]);
+};
 
 //edit user
 var loadFile = function(event) {
@@ -390,23 +384,56 @@ $(document).on('click', '.cancelbtn',function(event){
   $('.user-information').show();
 });
 //change password
-$(document).on('click', '.checked-box',function(event){
-  $('#user_password').css('disabled', false)
+$(document).on('click', '.checked-box', function(){
+  var a = $('.checked-box').prop('checked');
+  if ( a ) {
+    $('#user_password').attr('disabled', false);
+  }
+  else {
+    $('#user_password').attr('disabled', true);
+  }
 });
+
+
 //edit-profile
-$(document).on('click', '.editbtn', function(event){
+$(document).on('submit', '#edit-user-form', function(event){
   event.preventDefault();
-  var email = $(this).find('#user_name').val();
-  var name = $(this).find('#user_email').val();
-  // var password = $(this).find('#user_password').val();
-  var id_user = $(this).find();
-  $.ajax({
-    url: window.location.origin + `users/${id_user}`,
-    method: 'put',
-    data: { user: { email: email, name: name } },
-    dataType: 'json',
-    success: function(respone){
-      alert('Edit Profile Success');
-    },
-  });
+  if ( $('.checked-box').prop('checked') ) {
+    var email = $(this).find('#user_email').val();
+    var name = $(this).find('#user_name').val();
+    var password = $(this).find('#user_password').val();
+    var id_user = $(this).attr('data');
+    $.ajax({
+      url: window.location.origin + `/users/${id_user}`,
+      method: 'put',
+      data: { user: { email: email, name: name, password:password }, id: id_user },
+      dataType: 'json',
+      success: function(data){
+        alert('Edit Profile Success');
+        $(this).find('#user_name').val(data.name);
+        $(this).find('#user_email').val(data.email);
+        $('.editbtn').prop('disabled', false);
+        $('#user_password').val('');
+        $('#user_password').attr('disabled', true);
+        $('.checked-box').prop('checked', false);
+      }.bind(this),
+    });
+  }
+  else {
+    var email = $(this).find('#user_email').val();
+    var name = $(this).find('#user_name').val();
+    var id_user = $(this).attr('data');
+    $.ajax({
+      url: window.location.origin + `/users/${id_user}`,
+      method: 'put',
+      data: { user: { email: email, name: name }, id: id_user },
+      dataType: 'json',
+      success: function(data){
+        alert('Edit Profile Success');
+        $(this).find('#user_name').val(data.name);
+        $(this).find('#user_email').val(data.email);
+        $('.editbtn').prop('disabled', false);
+      }.bind(this),
+    });
+  }
 });
