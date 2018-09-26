@@ -1,13 +1,5 @@
 <%= form_for @user, html: {id: 'edit-user-form', data: current_user.id} do |f| %>
-  <% if @user.errors.any? %>
-    <div class="alert alert-danger">
-      <ul>
-      <% @user.errors.full_messages.each do |message| %>
-        <li><%= message %></li>
-      <% end %>
-      </ul>
-    </div>
-  <% end %>
+  <%= render 'shared/errors_mess', object: @user %>
   <div class="container c-user-edit">
     <h1><b>Profile</b></h1>
     <hr>
@@ -25,11 +17,11 @@
       <%= f.email_field :email, placeholder: "Enter Email", value:"#{@user.email}", autocomplete: 'off' %>
 
        <label>
-        <input type="checkbox" class = "checked-box" name="remember" style="margin-bottom:15px"> Change Password
+        <input type="checkbox" class = "checked-box" name="remember" style="margin-bottom:15px" > Change Password
       </label>
       <br>
       <%= f.label :password %>
-      <%= f.password_field :password, placeholder: "Enter Password", value:"#{@user.password}", disabled: true %>
+      <%= f.password_field :password, placeholder: "Enter Password", disabled: true %>
 
     <div class="user-edit-b">
       <button type="button" class="cancelbtn">Cancel</button>

@@ -5,14 +5,18 @@
   </button>
 
   <div class="collapse navbar-collapse" id="navbarSupportedContent">
-    <%= search_form_for(@search,class:"form-inline my-2 my-lg-0 ml-md-auto") do |f|    %> 
+   <!-- <%= search_form_for(@search,class:"form-inline my-2 my-lg-0 ml-md-auto") do |f| %> 
       <div class="form-group">
-        <%= f.search_field :content_or_user_name_cont, class: 'form-control mr-sm-2', placeholder: 'Search' %>
+        <%= f.search_field :name_cont, class: 'form-control mr-sm-2', placeholder: 'Search', autocomplete: 'off', id: 'search' %>
       </div>
-    <% end %> 
-    <%# <form class="form-inline my-2 my-lg-0 ml-md-auto">
-      <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">
-    </form> %>
+      </div>
+    <% end %> !-->
+      <%= form_tag users_path, method: :get, class:'form-inline my-2 my-lg-0 ml-md-auto', id: 'users-form-search',remote: true do %>
+        <div class="form-group">
+          <%= text_field_tag :term, params[:term], class: 'form-control mr-sm-2', placeholder: 'Search', autocomplete: 'off' %>
+        </div>
+        <div id = "users-result"></div>
+      <% end %>
     <ul class="navbar-nav ml-md-auto">
       <li class="nav-item">
         <a class="nav-link core-sprite explore-icon hide-text" href="#">Explore</a>

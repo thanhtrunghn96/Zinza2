@@ -1,8 +1,13 @@
 # frozen_string_literal: true
 
 class UsersController < ApplicationController
+  skip_before_action :verify_authenticity_token
   before_action :authenticate_user!
   before_action :find_user, only: %i[edit update show]
+  def index
+    @users = User.search(params[:term])
+    respond_to :js
+  end
 
   def show
     @posts = @user.posts.page(params[:page]).per(5)
@@ -18,12 +23,13 @@ class UsersController < ApplicationController
   end
 
   def update
-    @user.update(user_params)
-    respond_to do |format|
-      format.json { render to json: { success: true } }
+    if @user.update(user_params)
+      respond_to do |format|
+        format.json { render json: @user }
+      end
     end
   end
-
+  
   private
 
   def find_user
@@ -32,7 +38,7 @@ class UsersController < ApplicationController
   end
 
   def user_params
-    params.require(:user).permit(:email, :password, :name, :avatar)
+    params.require(:user).permit(:name, :email, :password, :avatar)
   end
 
   def render_load_perpage

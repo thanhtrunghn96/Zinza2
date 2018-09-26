@@ -22,7 +22,8 @@
             </div>
           </div>
           <div class = "card-post-content">
-            <%= text_field_tag 'post-edit-content', post.content, class:'form-control post-text', disabled: 'on' %>
+            <%# <%= text_field_tag 'post-edit-content', post.content, class:'form-control post-text', disabled: 'on'%>
+            <div class = "post-edit-content"><%= post.content%></div>
           </div>
         </div>
     </div>

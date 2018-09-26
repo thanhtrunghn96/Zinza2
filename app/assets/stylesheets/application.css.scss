@@ -173,8 +173,9 @@
 .post-text {
   border: none;
   width: 572px !important;
-  margin-top: 19px;
+  margin-top: 5px;
   height: 40px !important;
+  background-color: #ffffff !important;
 }
 .upload-images {
   width: 685px;
@@ -216,13 +217,15 @@
 .upload-photos-icon {
   height: 100px;
   width: 100px;
-  border: 2px dashed #DCDDE1;
+  // border: 2px dashed #DCDDE1;
   border-radius: 2px;
   padding: 34px;;
   display: inline-block;
   margin-left: 11px;
 }
-
+.upload-photos-icon img {
+  margin: -35px 0px 0px -36px;
+}
 .card-box {
   width: 688px;
   height: auto;
@@ -232,7 +235,8 @@
 }
 .card-inside {
   width: 649px;
-  height: 387px;
+  // height: 387px;
+  height: auto;
   margin: 20px auto;
 }
 .card-head {
@@ -277,10 +281,14 @@
 #show-post{
   cursor: pointer;
 }
-#post-edit-content {
-  margin:4px 0px 0px 2px !important;
+.post-edit-content {
+  margin: 7px 0px 0px 12px !important;
   background-color: #ffffff;
   cursor: auto;
+  height: auto;
+  max-width: 93%;
+  word-wrap: break-word;
+  font-size: 16px;
 }
 .like-box {
   width: 688px;
@@ -581,4 +589,44 @@ hr {
 .ifuser-name span {
   font-size: 16px;
   font-weight: 600;
+}
+
+//search box
+#users-result {
+  width: 100%;
+}
+.search-result-item {
+  padding: 15px;
+  width: 100%;
+  font-weight: 600;
+  color: #2A2A30;
+  font-family: inherit;
+}
+.popover {
+  border-radius: 0;
+}
+.popover-body {
+  background: #fff;
+  max-height: 300px;
+  overflow: auto;
+}
+.popover a {
+  text-decoration: none;
+}
+.avt-search-us {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  margin-top: 2px;
+}
+.avt-search-us img {
+  @extend .avt-search-us
+}
+.search-ava-link {
+  display: -webkit-inline-box;
+  width: 100%;
+  border-bottom: solid 1px #efefef;
+}
+.search-ava-link:hover {
+  background-color: #fafafa;
 }
