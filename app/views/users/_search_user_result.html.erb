@@ -1,0 +1,12 @@
+<% if users.present? %>
+  <% users.each do |user| %>
+    <% link_to user_path(user) ,class: 'link_user' do %>
+      <div class="user-s-avatar" ></div>
+      <div class = ""><%= user.name %></div>
+    <% end %>
+  <% end %>
+<% else %>
+  <div class = "noresult">
+    No results found
+  </div>
+<% end %>

@@ -15,10 +15,12 @@ class CommentsController < ApplicationController
 
   def create
     @comment = current_user.comments.build(comment_params)
-    return count_comments = @comment.post.comments.count if @comment.save
-    respond_to do |format|
-      format.html do
-        render 'create', layout: false, locals: { comment: @comment, count_comments: count_comments }
+    if @comment.save
+      count_comments = @comment.post.comments.count
+      respond_to do |format|
+        format.html do
+          render 'create', layout: false, locals: { comment: @comment, count_comments: count_comments }
+        end
       end
     end
   end
@@ -32,18 +34,22 @@ class CommentsController < ApplicationController
   end
 
   def update
-    return count_comments = @comment.post.comments.count if @comment.update(comment_params)
-    respond_to do |format|
-      format.html do
-        render 'create', layout: false, locals: { comment: @comment, count_comments: count_comments }
+    if @comment.update(comment_params)
+      count_comments = @comment.post.comments.count
+      respond_to do |format|
+        format.html do
+          render 'create', layout: false, locals: { comment: @comment, count_comments: count_comments }
+        end
       end
     end
   end
 
   def destroy
-    return count_comments = @post.comments.count if @comment.destroy
-    respond_to do |format|
-      format.json { render json: { count_comments: count_comments } }
+    if @comment.destroy
+      count_comments = @post.comments.count
+      respond_to do |format|
+        format.json { render json: { count_comments: count_comments } }
+      end
     end
   end
 

@@ -11,10 +11,10 @@
             <%= f.text_area :content, class:'form-control post-text', Placeholder: 'Say something about this ...', autocomplete: 'off'%>
           </div>
         </div>
-        <%= file_field_tag 'images[]', type: :file, multiple: true, style: 'margin: 6px 8px;', class: 'btn btn-light'%>
+        <%= file_field_tag 'images[]', type: :file, multiple: true, style: 'margin: 6px 8px;', class: 'btn btn-light', accept:"image/*", onchange:"loadFile1(event)"%>
         <div class = "dropzone-previews">
           <div class = "upload-photos-icon">
-            <img id="previewimage" alt="image" width="100px" height="100px"/>
+            <img id="previewimage" src="http://placehold.it/100x100" width="100px" height="100px"/>
             <%# <i class = "fa fa-plus fa-2x" aria-hidden = "true" style = "color:#DCDCDC"></i> %>
           </div>
         </div>
