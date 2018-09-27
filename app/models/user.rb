@@ -13,7 +13,7 @@ class User < ApplicationRecord
   has_many :user_request, dependent: :destroy, foreign_key: 'user_request', class_name: 'user_response'
   has_many :user_response, dependent: :destroy, foreign_key: 'user_response', class_name: 'user_response'
 
-  def search_us(search)
-    where('username LIKE ?', "%#{search}") if q
+  def self.search(term)
+    where('name LIKE ?', "%#{term}%") if term
   end
 end

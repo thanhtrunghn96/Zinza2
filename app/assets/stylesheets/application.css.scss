@@ -593,5 +593,40 @@ hr {
 
 //search box
 #users-result {
-  width: auto;
+  width: 100%;
+}
+.search-result-item {
+  padding: 15px;
+  width: 100%;
+  font-weight: 600;
+  color: #2A2A30;
+  font-family: inherit;
+}
+.popover {
+  border-radius: 0;
+}
+.popover-body {
+  background: #fff;
+  max-height: 300px;
+  overflow: auto;
+}
+.popover a {
+  text-decoration: none;
+}
+.avt-search-us {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  margin-top: 2px;
+}
+.avt-search-us img {
+  @extend .avt-search-us
+}
+.search-ava-link {
+  display: -webkit-inline-box;
+  width: 100%;
+  border-bottom: solid 1px #efefef;
+}
+.search-ava-link:hover {
+  background-color: #fafafa;
 }

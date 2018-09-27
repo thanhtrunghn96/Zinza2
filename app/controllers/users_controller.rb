@@ -5,13 +5,8 @@ class UsersController < ApplicationController
   before_action :authenticate_user!
   before_action :find_user, only: %i[edit update show]
   def index
-    @search = User.ransack(params[:q])
-    @seach_user = @search.result.page(params[:page]).per(5)
-    respond_to do |format|
-      format.html do
-        render '_search_user_result', layout: false, locals: { users: @seach_user }
-      end
-    end
+    @users = User.search(params[:term])
+    respond_to :js
   end
 
   def show
@@ -34,14 +29,7 @@ class UsersController < ApplicationController
       end
     end
   end
-
-  # def search
-  #   respond_to do |format|
-  #     format.html do
-  #       render '_search_user_result', layout: false
-  #     end
-  # end
-
+  
   private
 
   def find_user

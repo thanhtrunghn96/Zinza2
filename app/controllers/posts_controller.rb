@@ -18,11 +18,8 @@ class PostsController < ApplicationController
   def create
     @post = current_user.posts.build(post_params)
     if @post.save
-      params[:images]&.each do |img|
-        @post.photos.create(image: img)
-      end
+      @post.photos.create(image: [params[:images]]) if params[:images]
       respond_to do |format|
-        # format.json {render json: @post }
         format.html do
           render '_listposts', layout: false, locals: { post: @post }
         end

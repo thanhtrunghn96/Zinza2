@@ -17,6 +17,7 @@
 //= require bootstrap-sprockets
 //= require cocoon
 //= require dropzone
+//= require jquery-fileupload/basic
 //= require_tree .
 //= require toastr
 
@@ -80,7 +81,8 @@ $(document).on('submit', '#new_post',async function(event) {
         $('images_').prop('disabled', false);
         $('#post_content').val('');
         $('#images_').val('');
-        $("#all_post").prepend(partial);
+        $('#all_post').prepend(partial);
+        $('#previewimage').attr('src','http://placehold.it/100x100');
       },
     });
   }
@@ -99,6 +101,7 @@ $(document).on('submit', '#new_post',async function(event) {
         $('#post_content').val('');
         $('#images_').val('');
         $("#all_post").prepend(partial);
+        $('#previewimage').attr('src','http://placehold.it/100x100');
       },
     });
   }
@@ -436,4 +439,33 @@ $(document).on('submit', '#edit-user-form', function(event){
       }.bind(this),
     });
   }
+});
+
+// search box
+$(document).ready(function() {
+  $('#users-form-search #term').on('keyup', function(){
+    var jqxhr = $.get(
+      $('#users-form-search').attr('action'),
+      {term:  $('#users-form-search #term').val()},
+      function(){
+        var result = $('#users-result').html();
+        if (!result){
+          $('#users-form-search #term').popover({
+            content: 'No result found.',
+            placement: 'bottom',
+            html: true,
+            trigger: 'focus',
+          });
+        } else {
+          $('#users-form-search #term').popover({
+            content: $('#users-result'),
+            placement: 'bottom',
+            html: true,
+            trigger: 'focus',
+          });
+        }
+        $('#users-form-search #term').popover('show');
+      }
+    )
+  })
 });

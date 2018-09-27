@@ -1,9 +1,13 @@
 <% if users.present? %>
   <% users.each do |user| %>
-    <% link_to user_path(user) ,class: 'link_user' do %>
-      <div class="user-s-avatar" ></div>
-      <div class = ""><%= user.name %></div>
+    <div class="search-ava-link" >
+      <div class="avt-search-us" >
+        <%= image_tag user.avatar.url, alt: 'avatar.jpg', id: 'avt-s1' %>
+      </div>
+      <%= link_to user_path(user) ,class: 'link_user' do %>
+      <div class="search-result-item" ><%= user.name %></div>
     <% end %>
+    </div>
   <% end %>
 <% else %>
   <div class = "noresult">
