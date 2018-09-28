@@ -41,71 +41,71 @@
   //   });
   //  });
   // Creat post
-  function getBase64(file, onLoadCallback) {
-    return new Promise(function(resolve, reject) {
-      var reader = new FileReader();
-      reader.onload = function() { resolve(reader.result); };
-      reader.onerror = reject;
-      reader.readAsDataURL(file);
-    });
-  }
-$(document).on('submit', '#new_post',async function(event) {
-  event.preventDefault();
-  var count_file = $("input:file")[0].files.length;
-  var params_picture = "";
-  var a  = [];
-  if ( count_file != 0){
-    for(var i = 0; i < count_file; i++){
-      var file = $("#images_").prop('files')[`${i}`];
-      var base64_data = "";
-      if(file != " "){
-        var promise = getBase64(file);
-        var base64_data = await promise;
-        var b = `${i}`;
-        var c =  '"' + b + '"' + ':{"picture_url":' + '"' + base64_data + '"}';
-        a.push(c);
-      };
-    }
-    params_picture = a.join(",");
-    params_picture = '{'+ params_picture +'}';
-    var method = $(this).attr('method');
-    var url = $(this).attr('action');
-    var content = $(this).find('#post_content').val();
-  // var images = $(this).find('#images_').val();
-    $.ajax({
-      method: method,
-      url: url,
-      data: { post: {content: content}, images: JSON.parse(params_picture)},
-      dataType: 'html',
-      success: function(partial) {
-        $('images_').prop('disabled', false);
-        $('#post_content').val('');
-        $('#images_').val('');
-        $('#all_post').prepend(partial);
-        $('#previewimage').attr('src','http://placehold.it/100x100');
-      },
-    });
-  }
-  else
-  {
-    var method = $(this).attr('method');
-    var url = $(this).attr('action');
-    var content = $(this).find('#post_content').val();
-    $.ajax({
-      method: method,
-      url: url,
-      data: { post: {content: content}},
-      dataType: 'html',
-      success: function(partial) {
-        $(':input[type="submit"]').prop('disabled', false);
-        $('#post_content').val('');
-        $('#images_').val('');
-        $("#all_post").prepend(partial);
-        $('#previewimage').attr('src','http://placehold.it/100x100');
-      },
-    });
-  }
-});
+//   function getBase64(file, onLoadCallback) {
+//     return new Promise(function(resolve, reject) {
+//       var reader = new FileReader();
+//       reader.onload = function() { resolve(reader.result); };
+//       reader.onerror = reject;
+//       reader.readAsDataURL(file);
+//     });
+//   }
+// $(document).on('submit', '#new_post',async function(event) {
+//   event.preventDefault();
+//   var count_file = $("input:file")[0].files.length;
+//   var params_picture = "";
+//   var a  = [];
+//   if ( count_file != 0){
+//     for(var i = 0; i < count_file; i++){
+//       var file = $("#images_").prop('files')[`${i}`];
+//       var base64_data = "";
+//       if(file != " "){
+//         var promise = getBase64(file);
+//         var base64_data = await promise;
+//         var b = `${i}`;
+//         var c =  '"' + b + '"' + ':{"picture_url":' + '"' + base64_data + '"}';
+//         a.push(c);
+//       };
+//     }
+//     params_picture = a.join(",");
+//     params_picture = '{'+ params_picture +'}';
+//     var method = $(this).attr('method');
+//     var url = $(this).attr('action');
+//     var content = $(this).find('#post_content').val();
+//   // var images = $(this).find('#images_').val();
+//     $.ajax({
+//       method: method,
+//       url: url,
+//       data: { post: {content: content}, images: JSON.parse(params_picture)},
+//       dataType: 'html',
+//       success: function(partial) {
+//         $('images_').prop('disabled', false);
+//         $('#post_content').val('');
+//         $('#images_').val('');
+//         $('#all_post').prepend(partial);
+//         $('#previewimage').attr('src','http://placehold.it/100x100');
+//       },
+//     });
+//   }
+//   else
+//   {
+//     var method = $(this).attr('method');
+//     var url = $(this).attr('action');
+//     var content = $(this).find('#post_content').val();
+//     $.ajax({
+//       method: method,
+//       url: url,
+//       data: { post: {content: content}},
+//       dataType: 'html',
+//       success: function(partial) {
+//         $(':input[type="submit"]').prop('disabled', false);
+//         $('#post_content').val('');
+//         $('#images_').val('');
+//         $("#all_post").prepend(partial);
+//         $('#previewimage').attr('src','http://placehold.it/100x100');
+//       },
+//     });
+//   }
+// });
   
   //Delete post
 $(document).on('click', '#destroy-post', (event) => {
@@ -401,6 +401,7 @@ $(document).on('click', '.checked-box', function(){
 //edit-profile
 $(document).on('submit', '#edit-user-form', function(event){
   event.preventDefault();
+  debugger;
   if ( $('.checked-box').prop('checked') ) {
     var email = $(this).find('#user_email').val();
     var name = $(this).find('#user_name').val();
@@ -468,4 +469,21 @@ $(document).ready(function() {
       }
     )
   })
+});
+// notify
+$(document).on('turbolinks:load', function(){
+  App.notification = App.cable.subscriptions.create(
+	{channel: 'NotificationChannel', id: Cookies.get('current_user_id')}, {
+	connected: function(){},
+	disconnected: function(){},
+	received: function(data){
+  	this.executeMessage(data);
+	},
+    
+	/////////////////////////////
+	executeMessage: function(data) {
+  	console.log('new notification arrived');
+  	$('#notifications_in_header').empty().html(data.notifications);
+	}
+  });
 });

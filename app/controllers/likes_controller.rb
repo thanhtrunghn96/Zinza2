@@ -7,11 +7,9 @@ class LikesController < ApplicationController
   def create
     @like = current_user.likes.build(like_params)
     post = Post.find_by(id: params[:post][:post_id])
-    if @like.save
-      count_likes = post.likes.count
-      respond_to do |format|
-        format.json { render json: { count: count_likes, post_id: @like.post_id, like_id: @like.id } }
-      end
+    count_likes = post.likes.count if @like.save
+    respond_to do |format|
+      format.json { render json: { count: count_likes, post_id: @like.post_id, like_id: @like.id } } if @like.save
     end
   end
 
@@ -19,11 +17,9 @@ class LikesController < ApplicationController
     @like = Like.find_by(id: params[:id])
     post_id = @like.post_id
     post = Post.find_by(id: post_id)
-    if @like.destroy
-      count_likes = post.likes.count
-      respond_to do |format|
-        format.json { render json: { count: count_likes, post_id: post_id } }
-      end
+    count_likes = post.likes.count if @like.destroy
+    respond_to do |format|
+      format.json { render json: { count: count_likes, post_id: post_id } } if @like.destroy
     end
   end
 

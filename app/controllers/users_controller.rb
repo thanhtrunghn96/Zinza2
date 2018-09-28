@@ -29,7 +29,7 @@ class UsersController < ApplicationController
       end
     end
   end
-  
+
   private
 
   def find_user

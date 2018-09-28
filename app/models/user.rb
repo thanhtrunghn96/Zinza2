@@ -6,6 +6,7 @@ class User < ApplicationRecord
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :validatable
   mount_base64_uploader :avatar, AvatarUploader
+  acts_as_notification_target
   validates :name, presence: true, length: { maximum: 50 }
   has_many :posts, dependent: :destroy
   has_many :likes, dependent: :destroy
