@@ -18,16 +18,17 @@ class PostsController < ApplicationController
   def create
     @post = current_user.posts.build(post_params)
     if @post.save
-      @post.photos.create(image: [params[:images]]) if params[:images]
-      respond_to do |format|
-        format.html do
-          render '_listposts', layout: false, locals: { post: @post }
-        end
-      end
+      @post.photos.create(image: params[:images]) if params[:images]
+      # respond_to do |format|
+      #   format.html do
+      #     render '_listposts', layout: false, locals: { post: @post }
+      #   end
+      # end
+      flash[:notice] = 'Post success ...'
     else
-      flash[:danger] = "Can't save"
-      redirect_to posts_path
+      flash[:alert] = "Can't save ..."
     end
+    redirect_to root_path
   end
 
   def show

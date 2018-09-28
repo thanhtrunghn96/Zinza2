@@ -5,6 +5,7 @@ git_source(:github) { |repo| "https://github.com/#{repo}.git" }
 
 ruby '2.5.1'
 # Trung add
+gem 'activity_notification'
 gem 'bootstrap', '~> 4.1.3'
 gem 'carrierwave', '~> 1.0'
 gem 'carrierwave-base64'

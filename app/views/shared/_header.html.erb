@@ -18,6 +18,9 @@
         <div id = "users-result"></div>
       <% end %>
     <ul class="navbar-nav ml-md-auto">
+      <div id="notifications_in_header">
+        <%= render_notifications_of current_user, index_content: :with_attributes %>
+      </div>
       <li class="nav-item">
         <a class="nav-link core-sprite explore-icon hide-text" href="#">Explore</a>
       </li>

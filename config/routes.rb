@@ -4,6 +4,8 @@ Rails.application.routes.draw do
   get 'post/index'
   root 'posts#index'
   devise_for :users
+  notify_to :users, with_devise: :users
+  # notify_to :users
   resources :posts do
     resources :likes
     resources :comments
